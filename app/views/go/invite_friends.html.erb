@@ -1,0 +1,14 @@
+<h1>Invitez vos amis</h1>
+
+<%= simple_form_for @user, remote: true, url: invite_friend_group_path(current_user.group) do |f| %>
+  <%= f.input :email %>
+  <%= f.submit %>
+<% end %>
+
+<div class="js-friends">
+  <% current_user.group.users.each do |user| %>
+    <p><%= user.email %></p>
+  <% end %>
+</div>
+
+<%= link_to "OK !", next_wizard_path %>

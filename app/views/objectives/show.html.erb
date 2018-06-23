@@ -1,13 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>User:</strong>
-  <%= @objective.user %>
-</p>
-
-<p>
   <strong>Objective:</strong>
-  <%= @objective.objective %>
+  <%= render @objective %>
 </p>
 
 <%= link_to 'Edit', edit_objective_path(@objective) %> |

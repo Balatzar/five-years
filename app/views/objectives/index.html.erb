@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>User</th>
-      <th>Objective</th>
+      <th>Description</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,7 +15,7 @@
     <% @objectives.each do |objective| %>
       <tr>
         <td><%= objective.user %></td>
-        <td><%= objective.objective %></td>
+        <td><%= objective.description %></td>
         <td><%= link_to 'Show', objective %></td>
         <td><%= link_to 'Edit', edit_objective_path(objective) %></td>
         <td><%= link_to 'Destroy', objective, method: :delete, data: { confirm: 'Are you sure?' } %></td>

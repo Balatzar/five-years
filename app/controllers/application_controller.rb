@@ -1,8 +1,13 @@
 class ApplicationController < ActionController::Base
+
+  def after_sign_in_path_for(user)
+    go_path(:create_group)
+  end
+
   def redirect_to(options = {}, response_status = {})
     if params[:go_to].present?
       say "Go To param detected"
-      redirect_to params[:go_to]
+      super params[:go_to]
     else
       super(options, response_status)
     end

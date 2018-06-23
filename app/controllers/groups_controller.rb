@@ -25,6 +25,8 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new(group_params)
+    @group.creator = current_user
+    @group.users << current_user
 
     respond_to do |format|
       if @group.save
@@ -61,6 +63,17 @@ class GroupsController < ApplicationController
     end
   end
 
+  def invite_friend
+    @user = User.invite! email: params[:user][:email]
+    @user.update_column(:group_id, current_user.group.id)
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path, notice: "Utilisateur invité") }
+      format.json { head :no_content }
+      format.js { render :add_friend }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group
@@ -69,6 +82,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:creator_id, :name)
+      params.require(:group).permit(:name)
     end
 end

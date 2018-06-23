@@ -1,0 +1,11 @@
+<h1>Ajoutez vos objectifs</h1>
+
+<%= render "objectives/form", remote: true, go_to: request.url %>
+
+<div class="js-objectives">
+  <% current_user.objectives.each do |objective| %>
+    <%= render objective %>
+  <% end %>
+</div>
+
+<%= link_to "C'est bon !", next_wizard_path %>

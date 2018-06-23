@@ -1,10 +1,11 @@
-
 <%= simple_form_for(@group) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <% if go_to %>
+    <input name="go_to" value="<%= go_to %>" type="hidden">
+  <% end %>
 
   <div class="form-inputs">
-    <%= f.association :creator %>
     <%= f.input :name %>
   </div>
 

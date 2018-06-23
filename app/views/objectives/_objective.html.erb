@@ -1,0 +1,4 @@
+<div class="js-objective-<%= objective.id %>">
+  <%= objective.description %>
+  <%= link_to 'supprimer', delete_ajax_objective_path(objective), remote: true %>
+</div>

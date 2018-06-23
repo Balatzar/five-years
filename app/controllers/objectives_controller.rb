@@ -1,5 +1,5 @@
 class ObjectivesController < ApplicationController
-  before_action :set_objective, only: [:show, :edit, :update, :destroy]
+  before_action :set_objective, only: [:show, :edit, :update, :destroy, :delete_ajax]
 
   # GET /objectives
   # GET /objectives.json
@@ -25,11 +25,14 @@ class ObjectivesController < ApplicationController
   # POST /objectives.json
   def create
     @objective = Objective.new(objective_params)
+    @objective.user = current_user
 
     respond_to do |format|
       if @objective.save
+        @go_to = params[:go_to]
         format.html { redirect_to @objective, notice: 'Objective was successfully created.' }
         format.json { render :show, status: :created, location: @objective }
+        format.js { render :append }
       else
         format.html { render :new }
         format.json { render json: @objective.errors, status: :unprocessable_entity }
@@ -54,11 +57,17 @@ class ObjectivesController < ApplicationController
   # DELETE /objectives/1
   # DELETE /objectives/1.json
   def destroy
+    @id = @objective.id
     @objective.destroy
     respond_to do |format|
-      format.html { redirect_to objectives_url, notice: 'Objective was successfully destroyed.' }
+      # format.html { redirect_to objectives_url, notice: 'Objective was successfully destroyed.' }
       format.json { head :no_content }
+      format.js { render :remove_objective }
     end
+  end
+
+  def delete_ajax
+    destroy
   end
 
   private
@@ -69,6 +78,10 @@ class ObjectivesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def objective_params
-      params.require(:objective).permit(:user_id, :objective)
+      params.require(:objective).permit(:description)
+    end
+
+    def shared_delete
+      
     end
 end

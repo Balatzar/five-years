@@ -1,11 +1,12 @@
-
-<%= simple_form_for(@objective) do |f| %>
+<%= simple_form_for @objective, remote: (local_assigns[:remote] || false) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <% if local_assigns[:go_to] %>
+    <input name="go_to" value="<%= go_to %>" type="hidden">
+  <% end %>
 
   <div class="form-inputs">
-    <%= f.association :user %>
-    <%= f.input :objective %>
+    <%= f.input :description %>
   </div>
 
   <div class="form-actions">
