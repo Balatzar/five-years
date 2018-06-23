@@ -18,7 +18,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem "devise"
 gem "devise_invitable", "~> 1.7.0"
-gem "figaro"
 gem "font-awesome-rails"
 gem "honeybadger", "~> 3.1"
 gem "jquery-rails"
